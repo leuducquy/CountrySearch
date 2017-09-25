@@ -26,6 +26,9 @@
 		F2BE98791F794FE0009E9E99 /* DetailCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE98771F794FE0009E9E99 /* DetailCountryTableViewCell.swift */; };
 		F2BE987A1F794FE0009E9E99 /* DetailCountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2BE98781F794FE0009E9E99 /* DetailCountryTableViewCell.xib */; };
 		F2BE987C1F795602009E9E99 /* default_flag.png in Resources */ = {isa = PBXBuildFile; fileRef = F2BE987B1F795602009E9E99 /* default_flag.png */; };
+		F2BE987E1F796702009E9E99 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE987D1F796702009E9E99 /* Extension.swift */; };
+		F2BE98801F796740009E9E99 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE987F1F796740009E9E99 /* AlertView.swift */; };
+		F2BE98821F79684F009E9E99 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE98811F79684F009E9E99 /* Indicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,9 @@
 		F2BE98771F794FE0009E9E99 /* DetailCountryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCountryTableViewCell.swift; sourceTree = "<group>"; };
 		F2BE98781F794FE0009E9E99 /* DetailCountryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCountryTableViewCell.xib; sourceTree = "<group>"; };
 		F2BE987B1F795602009E9E99 /* default_flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_flag.png; sourceTree = "<group>"; };
+		F2BE987D1F796702009E9E99 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		F2BE987F1F796740009E9E99 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		F2BE98811F79684F009E9E99 /* Indicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		F4BA82EFB904FF14C6A76201 /* Pods-Country.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Country.release.xcconfig"; path = "Pods/Target Support Files/Pods-Country/Pods-Country.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +139,9 @@
 				F265D0C31F792B8C00255CCF /* Constant.swift */,
 				F265D0D81F793AD700255CCF /* ArrayTransfrom.swift */,
 				F265D0DA1F793EA100255CCF /* StringTransform.swift */,
+				F2BE987D1F796702009E9E99 /* Extension.swift */,
+				F2BE987F1F796740009E9E99 /* AlertView.swift */,
+				F2BE98811F79684F009E9E99 /* Indicator.swift */,
 			);
 			name = Utilities;
 			path = ../Utilities;
@@ -307,8 +316,11 @@
 				F265D0D51F79386F00255CCF /* CurrencyModel.swift in Sources */,
 				F265D0C71F792D9600255CCF /* ListCountryViewController.swift in Sources */,
 				F265D0AE1F792A3A00255CCF /* AppDelegate.swift in Sources */,
+				F2BE98801F796740009E9E99 /* AlertView.swift in Sources */,
+				F2BE987E1F796702009E9E99 /* Extension.swift in Sources */,
 				F265D0D91F793AD700255CCF /* ArrayTransfrom.swift in Sources */,
 				F265D0DB1F793EA200255CCF /* StringTransform.swift in Sources */,
+				F2BE98821F79684F009E9E99 /* Indicator.swift in Sources */,
 				F265D0C41F792B8C00255CCF /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
 import Alamofire
+import SystemConfiguration
 public enum Method: String {
     case options, get, heade, post
 }
@@ -26,34 +26,61 @@ class NetworkManager {
     }()
     
     static let sharedInstance = NetworkManager()
-    
-    class func requestPost(URLString: URLConvertible, parameters: [String: AnyObject]?, headers: [String: String]?) -> DataRequest {
-        
-        return NetworkManager.sharedInstance.manager.request(URLString, method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
+    func isConnectedToNetwork() -> Bool {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
             
-            if response.response?.statusCode != nil {
-                if response.response!.statusCode == 401 {
-                    
-                    
-                    
-                }
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+                
             }
+            
+        }) else {
+            
+            return false
         }
-        
+
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
     }
-    class func requestGet(URLString: URLConvertible, parameters: [String: AnyObject]?, headers: [String: String]?) -> DataRequest {
-        
-        
-        return  NetworkManager.sharedInstance.manager.request(URLString, method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
+    func checkInternet() {
+        if (!self.isConnectedToNetwork()) {
+            AlertView.showAlert(message: "No country found")
+            return
             
-            if response.response?.statusCode != nil {
-                if response.response!.statusCode == 401 {
-                    
-                    
-                    
+        }
+    }
+
+    
+    class func requestGet(URLString: URLConvertible, parameters: [String: AnyObject]?, headers: [String: String]?, completion : @escaping (_ response : [[String:Any]]) -> ()) {
+       
+           let indicator = Indicator()
+                indicator.show()
+        
+        Alamofire.request(URLString, method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
+                indicator.hide()
+            switch response.result {
+            case .success(let JSON) :
+                if let json = JSON as? [[String : Any]]{
+                    completion(json)
+                    return
                 }
+                
+                AlertView.showAlert(message: "No country found")
+                 break
+            case .failure(let error) :
+                AlertView.showAlert(message: "Request failed with error: \(error)")
+                 
+                break
             }
-            
         }
     }
     

@@ -57,14 +57,13 @@ class ListCountryViewController: UIViewController {
         tableView.tableHeaderView = searchController.searchBar
     }
     private func getAllCountry() {
-
-        NetworkManager.requestGet(URLString: Constant.ApiAllCountry, parameters: nil, headers: nil).responseJSON { (response) in
-            if let json = response.result.value as? [[String:Any]] {
-                  self.countryModels = Mapper<CountryModel>().mapArray(JSONArray: json)
-                    self.tableView.reloadData()
-            }
+        NetworkManager.requestGet(URLString:  Constant.ApiAllCountry, parameters: nil, headers: nil) { (response) in
+            
+            self.countryModels = Mapper<CountryModel>().mapArray(JSONArray: response)
+            self.tableView.reloadData()
         }
-    }
+        
+          }
     func addSegmentToNavBar(){
         let segment: UISegmentedControl = UISegmentedControl(items: ["Capital", "Currency","Langguage"])
         segment.sizeToFit()
@@ -83,19 +82,17 @@ class ListCountryViewController: UIViewController {
 }
 extension ListCountryViewController : UISearchResultsUpdating{
     func callSearchApi(searchText : String){
-        var params = [String : AnyObject]()
-        params[typeSearch.description] = searchText as AnyObject
-        
-        NetworkManager.requestGet(URLString: typeSearch.getApiSearch(), parameters: params, headers: nil).responseJSON { (response) in
-            if let json = response.result.value as? [[String:Any]] {
-               let searchModels = Mapper<CountryModel>().mapArray(JSONArray: json)
-                if(searchModels.count > 0){
-                    self.countryModels = searchModels
-                     self.tableView.reloadData()
-                }
-               
+        var params = [String : String]()
+        params[typeSearch.description] = searchText
+   
+        NetworkManager.requestGet(URLString: typeSearch.getApiSearch(), parameters: nil, headers: params) { (json) in
+            let searchModels = Mapper<CountryModel>().mapArray(JSONArray: json)
+            if(searchModels.count > 0){
+                self.countryModels = searchModels
+                self.tableView.reloadData()
             }
         }
+        
     }
     func updateSearchResults(for searchController: UISearchController) {
         
